@@ -1,7 +1,7 @@
 # Ponto Biometrico Digital Com ESP266
 
 
-<img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" alt="exemplo imagem" weight="300px" height="300px">
+<center> <img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" alt="exemplo imagem" weight="300px" height="300px"></center>
 
 > Este projeto consiste em um sistema de ponto biométrico digital desenvolvido com ESP8266. O dispositivo é capaz de capturar as impressões digitais dos usuários e registrar as marcações de entrada e saída em um servidor central, permitindo o controle de acesso e a gestão de frequência de funcionários de empresas ou instituições.
 
@@ -27,19 +27,18 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 * Instalação das Bibliotecas `<ESP8266WiFi.h/Adafruit_Fingerprint.h/WiFiClientSecure.h>`
 
 
-## ☕ Usando <nome_do_projeto>
+## ☕ Usando <Ponto_Biometrico_Digital>
 
-Para usar <nome_do_projeto>, siga estas etapas:
+Para usar <POnto_Biometrico_Digital>, siga estas etapas:
 
 ```
 <Baixe os itens citados anteriormente, faça as conexões necessárias entre esp8266 e o Sensor, altere o código com seu wifi, senha e api do google >
 ```
+> Baixe os itens citados anteriormente, faça as conexões necessárias entre esp8266 e o Sensor, altere o código com seu wifi, senha e api do google, após rode o código que ele deverá funcionar.
 
-Adicione comandos de execução e exemplos que você acha que os usuários acharão úteis. Fornece uma referência de opções para pontos de bônus!
+## 📫 Contribuindo para <Ponto_Biometrico_Digital>
 
-## 📫 Contribuindo para <nome_do_projeto>
-<!---Se o seu README for longo ou se você tiver algum processo ou etapas específicas que deseja que os contribuidores sigam, considere a criação de um arquivo CONTRIBUTING.md separado--->
-Para contribuir com <nome_do_projeto>, siga estas etapas:
+Para contribuir com <Ponto_Biometrico-Digital>, siga estas etapas:
 
 1. Bifurque este repositório.
 2. Crie um branch: `git checkout -b <nome_branch>`.
@@ -47,7 +46,15 @@ Para contribuir com <nome_do_projeto>, siga estas etapas:
 4. Envie para o branch original: `git push origin <nome_do_projeto> / <local>`
 5. Crie a solicitação de pull.
 
-Como alternativa, consulte a documentação do GitHub em [como criar uma solicitação pull](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+> Além disso, você poderá dar sugestões de melhoria no código e na idéia geral do projeto
+
+## Tecnologias usadas e Linguagens
+* C++
+* HTML5
+* CSS 3
+* FONTAWESOME 5
+* API GoogleSheet
+
 
 ## 🤝 Colaboradores
 
@@ -57,25 +64,33 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
   <tr>
     <td align="center">
       <a href="#">
-        <img src="https://avatars3.githubusercontent.com/u/31936044" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
+        <img src="https://avatars.githubusercontent.com/u/124714081?v=4" width="100px;" alt="Foto do Lucas"/><br>
         <sub>
-          <b>Iuri Silva</b>
+          <b>Lucas Waidman de Oliveira </b>
         </sub>
       </a>
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://s2.glbimg.com/FUcw2usZfSTL6yCCGj3L3v3SpJ8=/smart/e.glbimg.com/og/ed/f/original/2019/04/25/zuckerberg_podcast.jpg" width="100px;" alt="Foto do Mark Zuckerberg"/><br>
+        <img src="https://avatars.githubusercontent.com/u/108402999?v=4" width="100px;" alt="Foto do Dirceu"/><br>
         <sub>
-          <b>Mark Zuckerberg</b>
+          <b>Dirceu Aparecido da Silva Junior </b>
         </sub>
       </a>
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://miro.medium.com/max/360/0*1SkS3mSorArvY9kS.jpg" width="100px;" alt="Foto do Steve Jobs"/><br>
+        <img src="https://avatars.githubusercontent.com/u/54957276?v=4" width="100px;" alt="Foto do jaoo"/><br>
         <sub>
-          <b>Steve Jobs</b>
+          <b>João Vitor da Costa Andrade</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="#">
+        <img src="https://instagram.fldb3-1.fna.fbcdn.net/v/t51.2885-19/306032424_186369877177276_4312125635918152468_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fldb3-1.fna.fbcdn.net&_nc_cat=104&_nc_ohc=LpaeTo1XVgwAX9ao4JB&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfDdPfXH2fxCz1mnpHga1iECRB5kXG1jGxbjcoSroTEh6A&oe=6409068C&_nc_sid=8fd12b" width="100px;" alt="Foto do jaoo"/><br>
+        <sub>
+          <b>Davi Demiciano Giovani</b>
         </sub>
       </a>
     </td>
