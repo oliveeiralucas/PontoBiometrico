@@ -9,10 +9,12 @@
 <samp><h2> Instruções de Instalação:  </h2></samp>
 <hr>
 Para realizar a instalação e a utilização do projeto, você precisará instalar todas as biblitecas e driver necessários para utilizar o esp8266, sensor biométrico e realizar a conexão com a internet
-  
+
+<br><br>
+
 Segue abaixo as bibliotecas necessárias para o projeto:
-  <ul>
-    <li> http://arduino.esp8266.com/stable/package_esp8266com_index.json </li>
+
+º http://arduino.esp8266.com/stable/package_esp8266com_index.json
   
     <li> esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino </li>
   
