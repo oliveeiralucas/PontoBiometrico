@@ -13,30 +13,29 @@ Para realizar a instalação e a utilização do projeto, você precisará insta
 <br><br>
 
 Segue abaixo as bibliotecas necessárias para o projeto:
-
-º http://arduino.esp8266.com/stable/package_esp8266com_index.json
+<br>
+http://arduino.esp8266.com/stable/package_esp8266com_index.json
   
-º esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino
+esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino
   
-º https://www.arduino.cc/en/software - Arduino IDE nesse projeto estou utilizando a v.2.0.4
+https://www.arduino.cc/en/software - Arduino IDE nesse projeto estou utilizando a v.2.0.4
   
 Instalação do NodeMCU V2 / ESP32 com conversor USB serial CP210x
   
-º<p><a href="https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip" target="_blank"> Windowns</a> </p>
+<p><a href="https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip" target="_blank"> Windowns</a> </p>
   
-º<p><a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-           
-            tutoriais/163/CP210x_Mac_OSX_VCP_Driver.zip)" target="_blank"> MAC OSX </a> </p>
+<p><a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-        tutoriais/163/CP210x_Mac_OSX_VCP_Driver.zip)" target="_blank"> MAC OSX </a></p>
   
-<p><a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Linux-3-x-x-VCP-Driver-Source.zip)" target="_blank"> Linux </a> </p>
+<p><a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Linux-3-x-x-VCP-Driver-Source.zip)" target="_blank"> Linux </a></p>
   
-<p> Esse passo é muito importante, pois sem ele não haverá comunicação entre a IDE e o módulo NODE MCU </p>    
+<p>Esse passo é muito importante, pois sem ele não haverá comunicação entre a IDE e o módulo NODE MCU </p>    
   <br>
   
   Instalação do NodeMCU com conversor USB serial CH340G (V3)
 
-<a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_WINDOWS.zip)" target="_blank"> Windowns</a> 
+<p><a href="[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_WINDOWS.zip)" target="_blank"> Windowns</a></p> 
   
-<a href="[[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Mac_OSX_VCP_Driver.zip)](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_MAC.ZIP)" target="_blank"> MAC OSX </a> 
+<p><a href="[[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Mac_OSX_VCP_Driver.zip)](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_MAC.ZIP)" target="_blank"> MAC OSX </a> </p>
   
-<a href="[[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Linux-3-x-x-VCP-Driver-Source.zip)](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_LINUX.ZIP)" target="_blank"> Linux </a> 
+<p><a href="[[https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Linux-3-x-x-VCP-Driver-Source.zip)](https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CH341SER_LINUX.ZIP)" target="_blank"> Linux </a></p> 
    
