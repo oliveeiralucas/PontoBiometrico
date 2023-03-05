@@ -12,13 +12,13 @@ Para realizar a instalação e a utilização do projeto, você precisará insta
 
 <br>
 
-Segue abaixo as bibliotecas necessárias para o projeto:
+<p>Segue abaixo as bibliotecas necessárias para o projeto:</p>
 <br>
-http://arduino.esp8266.com/stable/package_esp8266com_index.json
+<p><a>http://arduino.esp8266.com/stable/package_esp8266com_index.json</a></p>
 <br>
-esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino
+<p>esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino</p>
 <br>  
-https://www.arduino.cc/en/software - Arduino IDE nesse projeto estou utilizando a v.2.0.4
+<p> <a> https://www.arduino.cc/en/software</a> - Arduino IDE nesse projeto estou utilizando a v.2.0.4</p>
 <br>  
 Instalação do NodeMCU V2 / ESP32 com conversor USB serial CP210x
   
