@@ -6,20 +6,20 @@
   Este projeto é ideal para empresas e instituições que desejam implementar um sistema de ponto biométrico digital eficiente e seguro, sem depender de equipamentos caros ou complexos. Com a simplicidade e versatilidade da plataforma ESP8266, é possível desenvolver soluções personalizadas e adaptáveis às necessidades específicas de cada usuário.
 <hr>
 
-<samp><h2> Instruções de Instalação:  </h2></samp>
+<samp><h2> <center>Instruções de Instalação:</center>  </h2></samp>
 <hr>
 Para realizar a instalação e a utilização do projeto, você precisará instalar todas as biblitecas e driver necessários para utilizar o esp8266, sensor biométrico e realizar a conexão com a internet
 
-<br><br>
+<br>
 
 Segue abaixo as bibliotecas necessárias para o projeto:
 <br>
 http://arduino.esp8266.com/stable/package_esp8266com_index.json
-  
+<br>
 esp8266 by esp8266 community - Essa já vem instalada junto com a IDE do Arduino
-  
+<br>  
 https://www.arduino.cc/en/software - Arduino IDE nesse projeto estou utilizando a v.2.0.4
-  
+<br>  
 Instalação do NodeMCU V2 / ESP32 com conversor USB serial CP210x
   
 <p><a href="https://s3-sa-east-1.amazonaws.com/robocore-tutoriais/163/CP210x_Windows_Drivers.zip" target="_blank"> Windowns</a> </p>
