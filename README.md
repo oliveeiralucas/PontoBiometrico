@@ -1,7 +1,7 @@
 # Ponto Biometrico Digital Com ESP266
 
 
-<center> <img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" alt="exemplo imagem" weight="300px" height="300px"></center>
+<img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" alt="exemplo imagem" weight="300px" height="300px" align="center">
 
 > Este projeto consiste em um sistema de ponto biométrico digital desenvolvido com ESP8266. O dispositivo é capaz de capturar as impressões digitais dos usuários e registrar as marcações de entrada e saída em um servidor central, permitindo o controle de acesso e a gestão de frequência de funcionários de empresas ou instituições.
 
@@ -29,10 +29,10 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## ☕ Usando <Ponto_Biometrico_Digital>
 
-Para usar <POnto_Biometrico_Digital>, siga estas etapas:
+Para usar <Pnto_Biometrico_Digital>, siga estas etapas:
 
 ```
-<Baixe os itens citados anteriormente, faça as conexões necessárias entre esp8266 e o Sensor, altere o código com seu wifi, senha e api do google >
+<Baixe os itens citados anteriormente, faça as conexões necessárias>
 ```
 > Baixe os itens citados anteriormente, faça as conexões necessárias entre esp8266 e o Sensor, altere o código com seu wifi, senha e api do google, após rode o código que ele deverá funcionar.
 
@@ -72,7 +72,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
     </td>
     <td align="center">
       <a href="#">
-        <img src="https://avatars.githubusercontent.com/u/108402999?v=4" width="100px;" alt="Foto do Dirceu"/><br>
+        <img src="https://media.licdn.com/dms/image/D4D03AQErt-4KkQTIAQ/profile-displayphoto-shrink_800_800/0/1677337899985?e=2147483647&v=beta&t=a2HP0rKSQy1L6XxQDuIKGiDVUQJ5l1lXWHlB2bhxPa8" width="100px;" alt="Foto do Dirceu"/><br>
         <sub>
           <b>Dirceu Aparecido da Silva Junior </b>
         </sub>
