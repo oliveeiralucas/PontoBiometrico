@@ -1,7 +1,7 @@
 # Ponto Biometrico Digital Com ESP266
 
 
-<img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" alt="exemplo imagem" weight="300px" height="300px" align="center">
+<img src="https://github.com/oliveeiralucas/PontoBiometrico/blob/main/favicon.png" weight="300px" height="300px" display="block" margin= "auto">
 
 > Este projeto consiste em um sistema de ponto biométrico digital desenvolvido com ESP8266. O dispositivo é capaz de capturar as impressões digitais dos usuários e registrar as marcações de entrada e saída em um servidor central, permitindo o controle de acesso e a gestão de frequência de funcionários de empresas ou instituições.
 
@@ -29,7 +29,7 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
 ## ☕ Usando <Ponto_Biometrico_Digital>
 
-Para usar <Pnto_Biometrico_Digital>, siga estas etapas:
+Para usar <Ponto_Biometrico_Digital>, siga estas etapas:
 
 ```
 <Baixe os itens citados anteriormente, faça as conexões necessárias>
