@@ -5,7 +5,7 @@
 
 > Este projeto consiste em um sistema de ponto biométrico digital desenvolvido com ESP8266. O dispositivo é capaz de capturar as impressões digitais dos usuários e registrar as marcações de entrada e saída em um servidor central, permitindo o controle de acesso e a gestão de frequência de funcionários de empresas ou instituições.
 
-### Ajustes e melhorias
+## <i class="fa-solid fa-gear"></i> Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
