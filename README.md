@@ -15,6 +15,11 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 - [ ] Finalizar Front-End
 - [ ] Implementação de visor OLED
 
+
+## 🔎 Como o Projeto Funciona 
+> O sistema é baseado em uma placa ESP8266 que se comunica com um sensor de impressão digital e um display OLED. Através de uma interface amigável, os usuários podem fazer suas marcações de ponto, que são registradas em um banco de dados centralizado e acessível através de uma API. O dispositivo também possui recursos de segurança, como autenticação de usuários e criptografia de dados.
+
+
 ## 💻 Pré-requisitos
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
@@ -96,10 +101,6 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
     </td>
   </tr>
 </table>
-
-
-## 🔎 Como o Projeto Funciona 
-> O sistema é baseado em uma placa ESP8266 que se comunica com um sensor de impressão digital e um display OLED. Através de uma interface amigável, os usuários podem fazer suas marcações de ponto, que são registradas em um banco de dados centralizado e acessível através de uma API. O dispositivo também possui recursos de segurança, como autenticação de usuários e criptografia de dados.
 
 ## 📝 Licença
 
