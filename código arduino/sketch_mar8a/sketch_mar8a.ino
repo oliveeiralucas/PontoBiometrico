@@ -7,7 +7,6 @@
 //Esse objeto é responsável por criar um ip estático, assim ele não fica variando cada vez que conecta no wifi
 //Para a utilização dessa sessão em seu código é necessário acessar o cmd e digitar "ipconfig"
 //Copiar mascara de sub rede, ipv4 e gateway padrão
-
 IPAddress ip(10, 21, 1, 255);   //mudar o ultimo digito (ipv4)
 IPAddress ip1(10, 21, 0, 254);  //mascara de subrede
 IPAddress ip2(255, 255, 0, 0);  //gateway padrão
@@ -17,8 +16,12 @@ IPAddress ip2(255, 255, 0, 0);  //gateway padrão
 WiFiServer server(80); // Porta 80
 
 
+//Configurações para o Wifi
 const char* ssid = "Unifil Computacao"; // nome da sua rede WiFi
 const char* password = ""; // senha da sua rede WiFi
+
+
+//Configurações da API do google
 const char* host = "script.google.com"; // host da planilha do Google
 const char* GAS_ID = "AKfycbzZnwU0cFINui6qhKp7S0Km4HOMw5ZJ73aHNaVUD2d-C2gmGDJtAsg37jbEB0Nu6C8C"; // ID do Google Apps Script
 
@@ -27,17 +30,18 @@ const char* GAS_ID = "AKfycbzZnwU0cFINui6qhKp7S0Km4HOMw5ZJ73aHNaVUD2d-C2gmGDJtAs
 SoftwareSerial mySerial(D7, D8);
 Adafruit_Fingerprint fingerprintSensor = Adafruit_Fingerprint(&mySerial);
 
-int desligarWifi = -1;
-int botao = D1;
+//Variáveis globais que serão utilizadas ao longo do programa
+int desligarWifi = -1; //objeto utilizado para desligar o wifi e evitar conflitos e bugs durante a execução do programa
+int botao = D1; //Define o botão de acionamento como D1
+
 
 void setup() //Void Setup
 {
   Serial.begin(9600);
   Serial.begin(115200);
   setupFingerprintSensor();   //Inicializa o sensor de digitais
-  conexaoWifi();
-
 }
+
 
 void setupFingerprintSensor() //Inicia o sensor biométrico
 {
@@ -67,6 +71,7 @@ void loop()
     {
     checkFingerprint();
     }
+    serverHttp();
 }
 
 void update_google_sheet(int _id) //Comunica com a planilha google
@@ -91,6 +96,7 @@ void update_google_sheet(int _id) //Comunica com a planilha google
 
     Serial.println();
     Serial.println("Conexão encerrada");
+    conexaoWifi();
 }//fim planilha
    
 //Exibe o menu no monitor serial
@@ -335,6 +341,7 @@ void conexaoWifi() // Realiza a conexão com a internet
     Serial.println();
     Serial.print("Connecting to "); // Mensagem apresentada no monitor série  
     Serial.println(ssid); // Apresenta o nome da rede no monitor série
+    /**/ WiFi.mode(WIFI_STA);
     WiFi.begin(ssid, password); // Inicia a ligação a rede
 
   while (WiFi.status() != WL_CONNECTED)
@@ -345,15 +352,63 @@ void conexaoWifi() // Realiza a conexão com a internet
     Serial.println("");
     Serial.println("WiFi connected"); // Se a ligação é efectuada com sucesso apresenta esta mensagem no monitor série
     // Servidor
-    server.begin(); // Comunicação com o servidor
     Serial.println("Servidor iniciado"); //é apresentado no monitor série que o  servidor foi iniciado
-    // Impressão do endereço IP
+    // Impressão do endereço IP 
     Serial.print("Use o seguinte URL para a comunicação: ");
     Serial.print("http://");
     Serial.print(WiFi.localIP()); //Abrindo o Brower com este IP acedemos á pagina HTML de controlo dos LED´s, sendo que este IP só está disponível na rede à qual o ESP8266 se encontra ligado
-    Serial.println("/");
-    
-  }
+    Serial.println("/"); 
+   }
+  serverHttp();
+}
+
+/**/ void serverHttp(){
+
+    // Check if a client has connected
+    /**/WiFi.config(ip, ip1, ip2);
+    /**/server.begin();
+
+    /**/ WiFiClient client = server.available();
+    /**/ if (!client) {
+    /**/ return;
+    /**/ }
+    client.setTimeout(5000); // default is 1000
+
+   // Read the first line of the request
+   String req = client.readStringUntil('\r');
+
+    // Match the request
+    int val;
+
+    if (req.indexOf("?Liga=") != -1){
+    checkFingerprint();
+    }
+
+    // read/ignore the rest of the request
+    // do not client.flush(): it is for output only, see below
+    while (client.available()) {
+    // byte by byte is not very efficient
+    client.read();
+    }
+
+    // Send the response to the client
+    // it is OK for multiple small client.print/write,
+    // because nagle algorithm will group them into one single packet
+    client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\n "));
+    client.print(F("<h1><html style=\"font-size:14px\"> Menu ESP8266 (Automa&ccedil;&atilde;o para Leigos)\n</h1>"));
+    client.print(F("<body>\n"));
+    //inicio do Form
+    client.print(F("<form action=\"http://"));
+    client.print(WiFi.localIP());
+    client.print(F("\" method=\"get\">\n"));
+    client.print(F("<b><br></br><html style=\"font-size:14px\"> Ligar LED da placa do ESP8266\n</b>"));
+    client.print(F("<p></p><button input name=\"Desliga\" style=\"height:20px;width:150px;font-size:13px\" >Desligar</button>")); //<br></br>
+    client.print(F("<button input name=\"Liga\" style=\"height:20px;width:150px;font-size:13px\" >Ligar</button>"));
+    client.print(F("<p></p>"));
+    //fim do form
+    client.print(F("</form>\n"));
+    client.print(F("</body>\n"));
+    client.print(F("</html>"));
 }
 
 void login ()
@@ -381,7 +436,7 @@ void login ()
 }
 
 void login2 ()
-{ // Cria um painel de login para excluir um banco
+{ // Cria um painel de login para excluir o banco de dados
   painelLogin();
   String username = "";
   String password = "";

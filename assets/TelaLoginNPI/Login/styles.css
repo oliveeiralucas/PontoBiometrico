@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-image: url('https://github.com/oliveeiralucas/web-site/blob/main/fotodesfoque.png?raw=true');
+    background-repeat: no-repeat;
+    background-size:cover;
+    align-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+
+.layout {
+    display: flex;
+    position: relative;
+    width: 450px;
+    height: 550px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    justify-content: center;
+    align-items: center;
+    top:-50px;
+}
+
+.layout2 {
+    position: relative;
+    width: auto;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    top:-80px;
+    margin-top: 100px;
+
+}
+
+h2{
+    font-size: 2.0em;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+}
+
+input:focus ~ label, 
+input:valid ~ label{   
+    top: -5px;
+}
+
+button{
+    width: 60%;
+    height: 50px;
+    border-radius: 40px;
+    background: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 450;
+    margin-top: 30px;
+    margin-left: 20%;
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+
+.registro{
+    font-size: 1em;
+    color: #ffff;;
+    text-decoration: none;
+    text-align: center;
+    margin: 40px 0 10px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.registro a{
+    font-size: 1em;
+    color:rgb(253, 177, 37);
+    text-decoration: none;
+}
+
+.registro a:hover{
+text-decoration: underline;
+}
