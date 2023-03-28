@@ -1,0 +1,19 @@
+Libraries to Install
+
+- http://arduino.esp8266.com/stable/package_esp8266com_index.json - Preferences - Paste Url
+
+- Esp8266 by Esp8266Community - Manage Libraires
+
+- Adafruit_fingerprint - Repository
+
+- WifiClientSecure - Repository
+
+- Esp8266Wifi - Repository
+
+- Wire.h - Nativa
+
+- SSD1306Wire.h - Repository  
+
+
+Qualquer dúvida entrar em contato
+
