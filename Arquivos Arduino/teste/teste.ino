@@ -2,15 +2,23 @@
 #include <Adafruit_Fingerprint.h> //Biblioteca do sensor
 #include <WiFiClientSecure.h> //Biblioteca do wifi
 #include <ESP8266WiFi.h>  //Biblioteca do servidor
+#include <Wire.h>
+#include "SSD1306Wire.h"
+
+//Imagens para o OLED
+#include "digital.h"
+#include "verificado.h"
+#include "impressao_digital.h"
+#include "digitalizacao.h"
+#include "biometria_erro.h"
 
 
+//
+#define width_image 64
+#define height_image 64
 //Esse objeto é responsável por criar um ip estático, assim ele não fica variando cada vez que conecta no wifi
 //Para a utilização dessa sessão em seu código é necessário acessar o cmd e digitar "ipconfig"
 //Copiar mascara de sub rede, ipv4 e gateway padrão
-IPAddress ip(10, 21, 1, 255);   //mudar o ultimo digito (ipv4)
-IPAddress ip1(10, 21, 0, 254);  //mascara de subrede
-IPAddress ip2(255, 255, 0, 0);  //gateway padrão
-
 
 //Essa parte do código fica responsável pela configuração do wifi
 WiFiServer server(80); // Porta 80
@@ -27,12 +35,18 @@ const char* GAS_ID = "AKfycbzZnwU0cFINui6qhKp7S0Km4HOMw5ZJ73aHNaVUD2d-C2gmGDJtAs
 
 
 //Objeto responsável por controlar o sensor de digitais
-SoftwareSerial mySerial(D7, D8);
 Adafruit_Fingerprint fingerprintSensor = Adafruit_Fingerprint(&mySerial);
+SoftwareSerial mySerial(D7, D5); // Configura as portas do sensor biométrico
+
+
+
+SSD1306Wire  display(0x3c, D2, D0); // Configura as portas do OLED
+
 
 //Variáveis globais que serão utilizadas ao longo do programa
-int desligarWifi = -1; //objeto utilizado para desligar o wifi e evitar conflitos e bugs durante a execução do programa
-int botao = D1; //Define o botão de acionamento como D1
+int botao = D4; //Define o botão de acionamento como D1
+uint8_t id;
+int counter = 1;
 
 
 void setup() //Void Setup
@@ -40,8 +54,9 @@ void setup() //Void Setup
   Serial.begin(9600);
   Serial.begin(115200);
   setupFingerprintSensor();   //Inicializa o sensor de digitais
+  display.init();
+  display.flipScreenVertically();
 }
-
 
 void setupFingerprintSensor() //Inicia o sensor biométrico
 {
@@ -71,15 +86,36 @@ void loop()
     {
     checkFingerprint();
     }
-    serverHttp();
+
+    display.clear();
+    telainicial();
+    display.display();
 }
 
-void update_google_sheet(int _id) //Comunica com a planilha google
+void update_google_sheet(int _id)
 {
-    conexaoWifi();
+    Serial.print("Connecting to ");
+    Serial.println(host);
+
+    // Conectar-se à rede WiFi
+    Serial.printf("Conectando-se à rede WiFi %s ", ssid);
+    WiFi.begin(ssid, password);
+    while (WiFi.status() != WL_CONNECTED) {
+        drawProgressBarDemo();
+        Serial.print(".");
+    }
+    Serial.println(" conectado com sucesso");
+
     // Use WiFiClient class to create TCP connections
     WiFiClientSecure client;
+    const int httpPort = 443; // 80 é para HTTP / 443 é para HTTPS!
+
     client.setInsecure(); // essa é a linha mágica que faz tudo funcionar
+
+    if (!client.connect(host, httpPort)) { // funciona!
+        Serial.println("Falha na conexão");
+        return;
+    }
 
     //----------------------------------------Processamento de dados e envio de dados
     String url = "/macros/s/" + String(GAS_ID) + "/exec?ID=";
@@ -94,9 +130,10 @@ void update_google_sheet(int _id) //Comunica com a planilha google
         "Host: " + String(host) + "\r\n" +
         "Connection: close\r\n\r\n");
 
+    WiFi.disconnect();
+    drawImageVerificado();
     Serial.println();
     Serial.println("Conexão encerrada");
-    conexaoWifi();
 }//fim planilha
    
 //Exibe o menu no monitor serial
@@ -138,7 +175,6 @@ void printMenu()
       Serial.println(F("Opção inválida"));
       break;
   }
-  desligarWifi = 0;
 }
 
 //Espera até que se digite algo no monitor serial e retorna o que foi digitado
@@ -146,28 +182,24 @@ String getCommand()
 {
   while(!Serial.available()) yield();
   return Serial.readStringUntil('\n');
-  desligarWifi = 1;
+  WiFi.disconnect();
 }
-
 //Cadastro da digital
 void storeFingerprint() // Função para armazenar digitais
-{
-  Serial.println(F("Qual a posição para guardar a digital? (1 a 149)"));
+    {
 
-  //Lê o que foi digitado no monitor serial
-  String strLocation = getCommand();
+    for (size_t i = 1; i < 149; i++)
+   {
+   uint8_t c = fingerprintSensor.loadModel(i);
 
-  //Transforma em inteiro
-  int location = strLocation.toInt();
-
-  //Verifica se a posição é válida ou não
-  if(location < 1 || location > 149)
-  {
-    //Se chegou aqui a posição digitada é inválida, então abortamos os próximos passos
-    Serial.println(F("Posição inválida"));
-    return;
+    if (c != FINGERPRINT_OK) {
+    id = i;
+    uint8_t c = fingerprintSensor.loadModel(-1);
+    break;
+   }
   }
 
+  //Lê o que foi digitado no monitor serial
   Serial.println(F("Encoste o dedo no sensor"));
 
   //Espera até pegar uma imagem válida da digital
@@ -211,7 +243,7 @@ void storeFingerprint() // Função para armazenar digitais
   }
 
   //Guarda o modelo da digital no sensor
-  if(fingerprintSensor.storeModel(location) != FINGERPRINT_OK)
+  if(fingerprintSensor.storeModel(id) != FINGERPRINT_OK)
   {
     //Se chegou aqui deu erro, então abortamos os próximos passos
     Serial.println(F("Erro storeModel"));
@@ -219,13 +251,13 @@ void storeFingerprint() // Função para armazenar digitais
   }
 
   //Se chegou aqui significa que todos os passos foram bem sucedidos
-  Serial.println(F("Sucesso!!!"));
-  desligarWifi = 0;
+  Serial.println(F("Sucesso!!!"));  
 }
 
 //Verifica se a digital está cadastrada
 void checkFingerprint() // Função para checkar digitais
 {
+  drawImageVerificaDigital ();
   Serial.println(F("Encoste o dedo no sensor"));
 
   //Espera até pegar uma imagem válida da digital
@@ -236,28 +268,32 @@ void checkFingerprint() // Função para checkar digitais
   {
     //Se chegou aqui deu erro, então abortamos os próximos passos
     Serial.println(F("Erro image2Tz"));
+    drawImageBiometriaErro();
     return;
   }
   
   //Procura por este padrão no banco de digitais
   if (fingerprintSensor.fingerFastSearch() != FINGERPRINT_OK)
   {
-    //Se chegou aqui significa que a digital não foi encontrada
-    Serial.println(F("Digital não encontrada"));
+    drawImageBiometriaErro();
     return;
 
   }
 
   Serial.print(F("Digital encontrada com confiança de "));
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  //Seleciona a fonte
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(63, 10, "Digital reconhecida!");
+  display.drawString(63, 45, "Sucesso!");
+  display.display(); 
   Serial.print(fingerprintSensor.confidence);
   Serial.print(F(" na posição "));
   Serial.println(fingerprintSensor.fingerID);
-  desligarWifi = 1;
-  conexaoWifi();
   update_google_sheet(fingerprintSensor.fingerID);
   
 }
-
 
 void printStoredFingerprintsCount() // Função para ver quantas digitais tem armazenadas
 {
@@ -296,8 +332,6 @@ void deleteFingerprint() // Função para apagar uma digital
   {
     Serial.println(F("Digital apagada com sucesso!!!"));
   }
-  desligarWifi = 0;
-
 }
 
 void emptyDatabase() // Função para apagar o banco de dados
@@ -329,86 +363,6 @@ void emptyDatabase() // Função para apagar o banco de dados
   {
     Serial.println(F("Cancelado"));
   }
-  desligarWifi = 0;
-
-}
-
-void conexaoWifi() // Realiza a conexão com a internet
-{
-  if (desligarWifi == 1)
-  {
-    Serial.println();
-    Serial.println();
-    Serial.print("Connecting to "); // Mensagem apresentada no monitor série  
-    Serial.println(ssid); // Apresenta o nome da rede no monitor série
-    /**/ WiFi.mode(WIFI_STA);
-    WiFi.begin(ssid, password); // Inicia a ligação a rede
-
-  while (WiFi.status() != WL_CONNECTED)
-   {
-    delay(500);
-    Serial.print("."); // Enquanto a ligação não for efectuada com sucesso é apresentado no monitor série uma sucessão de “.”
-    }
-    Serial.println("");
-    Serial.println("WiFi connected"); // Se a ligação é efectuada com sucesso apresenta esta mensagem no monitor série
-    // Servidor
-    Serial.println("Servidor iniciado"); //é apresentado no monitor série que o  servidor foi iniciado
-    // Impressão do endereço IP 
-    Serial.print("Use o seguinte URL para a comunicação: ");
-    Serial.print("http://");
-    Serial.print(WiFi.localIP()); //Abrindo o Brower com este IP acedemos á pagina HTML de controlo dos LED´s, sendo que este IP só está disponível na rede à qual o ESP8266 se encontra ligado
-    Serial.println("/"); 
-   }
-  serverHttp();
-}
-
-/**/ void serverHttp(){
-
-    // Check if a client has connected
-    /**/WiFi.config(ip, ip1, ip2);
-    /**/server.begin();
-
-    /**/ WiFiClient client = server.available();
-    /**/ if (!client) {
-    /**/ return;
-    /**/ }
-    client.setTimeout(5000); // default is 1000
-
-   // Read the first line of the request
-   String req = client.readStringUntil('\r');
-
-    // Match the request
-    int val;
-
-    if (req.indexOf("?Liga=") != -1){
-    checkFingerprint();
-    }
-
-    // read/ignore the rest of the request
-    // do not client.flush(): it is for output only, see below
-    while (client.available()) {
-    // byte by byte is not very efficient
-    client.read();
-    }
-
-    // Send the response to the client
-    // it is OK for multiple small client.print/write,
-    // because nagle algorithm will group them into one single packet
-    client.print(F("HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<!DOCTYPE HTML>\r\n<html>\r\n "));
-    client.print(F("<h1><html style=\"font-size:14px\"> Menu ESP8266 (Automa&ccedil;&atilde;o para Leigos)\n</h1>"));
-    client.print(F("<body>\n"));
-    //inicio do Form
-    client.print(F("<form action=\"http://"));
-    client.print(WiFi.localIP());
-    client.print(F("\" method=\"get\">\n"));
-    client.print(F("<b><br></br><html style=\"font-size:14px\"> Ligar LED da placa do ESP8266\n</b>"));
-    client.print(F("<p></p><button input name=\"Desliga\" style=\"height:20px;width:150px;font-size:13px\" >Desligar</button>")); //<br></br>
-    client.print(F("<button input name=\"Liga\" style=\"height:20px;width:150px;font-size:13px\" >Ligar</button>"));
-    client.print(F("<p></p>"));
-    //fim do form
-    client.print(F("</form>\n"));
-    client.print(F("</body>\n"));
-    client.print(F("</html>"));
 }
 
 void login ()
@@ -432,7 +386,6 @@ void login ()
   else{
   Serial.println("Falha ao efetuar login...");
   }
-  desligarWifi = 0;
 }
 
 void login2 ()
@@ -456,8 +409,6 @@ void login2 ()
   else{
   Serial.println("Falha ao efetuar login...");
   }
-  desligarWifi = 0;
-
 }
  
 void painelLogin()
@@ -470,4 +421,77 @@ void painelLogin()
     Serial.println("| USUÁRIO:                            |");
     Serial.println("| SENHA:                              |");
     Serial.println("|=====================================|");
+}
+
+void telainicial()
+{
+  //Apaga o display
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  //Seleciona a fonte
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(63, 10, "Sistema de ponto");
+  display.drawString(63, 26, "Biométrico");
+  display.drawString(63, 45, "NPI");
+  display.display();
+  
+  /*
+  display.clear();
+  drawImageImpressaoDigital();
+  display.display();
+  
+  display.clear();
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  display.setFont(ArialMT_Plain_16);
+  display.drawString(63, 10, "Aperte o Botão");
+  display.drawString(63, 26, "Ao lado");
+  display.drawString(63, 45, "-->");
+  display.display();
+  */
+  
+}
+
+void drawImageVerificaDigital() {
+  display.clear();
+  display.drawXbm(34, 1, width_image, height_image, colocar_dedo);
+  display.display();
+}
+
+void drawImageVerificado() {
+  display.clear();
+  display.drawXbm(34, 1, width_image, height_image, logo_verificado);
+   display.display();
+   delay(3000);
+}
+
+void drawImageImpressaoDigital() {
+  display.clear();
+  display.drawXbm(34, 1, width_image, height_image, logo_impressao_digital );
+   display.display();
+}
+
+void drawImageDigitalizacao() {
+  display.clear();
+  display.drawXbm(34, 1, width_image, height_image, logo_digitalizacao);
+   display.display();
+}
+
+void drawImageBiometriaErro() {
+  display.clear();
+  display.drawXbm(34, 1, width_image, height_image, logo_biometria_erro);
+   display.display();
+}
+
+void drawProgressBarDemo() {
+  
+  display.clear();
+  int progress = (counter / 5) % 100; 
+  // draw the progress bar
+  display.drawProgressBar(0, 32, 120, 10, progress);
+
+  // draw the percentage as String
+  display.setTextAlignment(TEXT_ALIGN_CENTER);
+  display.drawString(64, 15, String(progress) + "%");
+  display.display();
+  counter++;
 }
