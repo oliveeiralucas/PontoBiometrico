@@ -71,7 +71,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
       <a href="#">
         <img src="https://avatars.githubusercontent.com/u/124714081?v=4" width="100px;" alt="Foto do Lucas"/><br>
         <sub>
-          <b>Lucas Waidman de Oliveira </b>
+          <b>Lucas Oliveira </b>
         </sub>
       </a>
     </td>
